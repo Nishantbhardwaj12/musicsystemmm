@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nishant's Player</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="main_div">
+        <div class="music_container">
+            <h2 id="tittle">Blessing of Sister</h2>
+            <h3 id="artist">Gagan Kokri</h3>
+            <div class="image_container">
+                <img src="images/img1.jpg" alt="" srcset="">
+            </div>
+            <audio src="music/music1.mp3"></audio>
+
+            <!-- controls -->
+            <div class="music_controls">
+                <i class="fas fa-backward" id="prev" title="previous"></i>
+                <i class="fas fa-play main_button" id="play" title="play"></i>
+                <i class="fas fa-forward" id="next" title="next"></i>
+            </div>
+        </div>
+    </div>
+    <script>
+        const music = document.querySelector("audio");
+        const img = document.querySelector("img")
+        const play = document.getElementById("play");
+        const artist = document.getElementById("artist");
+        const title = document.getElementById("title");
+        const prev = document.getElementById("prev");
+        const next = document.getElementById("next");
+
+        const songList = [{
+            name: "music1.mp3",
+            title: "music name",
+            artist: "singer name",
+            image: "img1"
+        },
+        {
+            name: "music3.mp3",
+            tittle: "music name",
+            artist: "singer name",
+            image: "img3"
+        },
+        {
+            name: "music4.mp3",
+            title: "music name",
+            artist: "singer name",
+            image: "img4"
+        },
+        {
+            name: "music5.mp3",
+            title: "music name",
+            artist: "singer name",
+            image: "img5"
+        },
+        {
+            name: "music6.mp3",
+            title: "music name",
+            artist: "singer name",
+            image: "img2"
+        },];
+
+        let isPlaying = false;
+        // for play music
+        const playMusic = () => {
+            music.play();
+            isPlaying = true;
+            play.classList.replace("fa-play", "fa-pause");
+            img.classList.add("anime");
+        };
+        // for pause music
+        const pauseMusic = () => {
+            music.pause();
+            isPlaying = false;
+            play.classList.replace("fa-pause", "fa-play");
+            img.classList.remove("anime");
+        };
+
+        play.addEventListener("click", () => {
+            if (isPlaying) {
+                pauseMusic();
+            } else {
+                playMusic();
+            }
+        });
+        // changing music
+        const loadSong = (songList) => {
+            title.textContent = songList.title;
+            artist.textContent = songList.artist;
+            music.src = "music/" + songList.name;
+            img.src = "images/" + songList.image + ".jpg";
+        };
+        songIndex = 0;
+        // loadSong(songList[3])
+        const nextSong = () =>{
+            songIndex = (songIndex + 1) % songList.length;
+            loadSong(songList[songIndex]);
+            playMusic();
+        };
+
+        const prevSong = () =>{
+            songIndex = (songIndex - 1 + songList.length) % songList.length;
+            loadSong(songList[songIndex]);
+            playMusic();
+        };
+
+        next.addEventListener("click" , nextSong);
+        prev.addEventListener("click" , prevSong );
+
+    </script>
+</body>
+
+</html>
